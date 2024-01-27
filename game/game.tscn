@@ -1,4 +1,24 @@
-[gd_scene format=3 uid="uid://8g7kfpku1toy"]
+[gd_scene load_steps=3 format=3 uid="uid://8g7kfpku1toy"]
+
+[ext_resource type="Texture2D" uid="uid://twhfnek65nmn" path="res://icon.svg" id="1_lwe8o"]
+
+[sub_resource type="GDScript" id="GDScript_pn5h4"]
+script/source = "extends Node2D
+
+func _ready():
+	Beat.indicators = self
+
+func _draw():
+	Beat.draw_babies()
+
+func draw_indicator(texture: Texture2D, beat: float, key: String):
+	var diff = Beat.beat_to_time(Beat.current_beat-beat)
+	var y_position = diff*Beat.indicator_speed
+	var pos = Vector2(0.0,y_position)-texture.get_size()/2.0
+	draw_texture(texture,pos)
+	draw_string(Control.new().get_theme_font(\"\"),pos,key)
+
+"
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -8,12 +28,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Igrica" type="Control" parent="."]
+[node name="Levo" type="Control" parent="."]
 layout_mode = 1
 anchor_right = 0.667
 anchor_bottom = 1.0
 grow_vertical = 2
 size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Levo"]
+layout_mode = 0
+offset_left = 374.0
+offset_top = 253.0
+offset_right = 623.0
+offset_bottom = 399.0
+text = "Idle"
 
 [node name="Desno" type="Control" parent="."]
 layout_mode = 1
@@ -31,11 +59,14 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+offset_left = 1.19199
+offset_top = -301.0
+offset_right = 20.192
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="a" type="Node2D" parent="Desno/Control"]
-position = Vector2(-171.808, -608)
+[node name="Indicators" type="Node2D" parent="Desno/Control"]
+script = SubResource("GDScript_pn5h4")
+
+[node name="Icon" type="Sprite2D" parent="Desno/Control/Indicators"]
+texture = ExtResource("1_lwe8o")
