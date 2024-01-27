@@ -22,7 +22,7 @@ class Tile: # take
 		c.draw_indicator(beat,key)
 		pass
 
-var delay: float = 0.675
+var delay: float = 0.70
 var pitch: float = 1.0 : set = _set_pitch
 var bpm: float = 95.957
 var current_beat: float = 0.0
