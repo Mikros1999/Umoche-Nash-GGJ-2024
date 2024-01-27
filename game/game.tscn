@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://8g7kfpku1toy"]
+[gd_scene load_steps=49 format=3 uid="uid://8g7kfpku1toy"]
 
 [ext_resource type="Script" path="res://game/Pop.gd" id="1_47122"]
 [ext_resource type="Texture2D" uid="uid://dryw871auxpmn" path="res://textures/POP STAVLJA.png" id="2_6s8in"]
@@ -19,7 +19,14 @@
 [ext_resource type="Texture2D" uid="uid://b148kivcbh5mo" path="res://textures/buttons/ANDJEO_BEBA.png" id="14_dx3ls"]
 [ext_resource type="Texture2D" uid="uid://dl1w4lvb4bv21" path="res://textures/buttons/RELOAD_BTN.png" id="14_ux28w"]
 [ext_resource type="Texture2D" uid="uid://cu4ximd171ho2" path="res://textures/buttons/DJAVO_BEBA.png" id="15_16dh5"]
+[ext_resource type="Texture2D" uid="uid://ent5vino6o0w" path="res://textures/inverselight.png" id="15_u1l26"]
 [ext_resource type="PackedScene" uid="uid://1ssoyii7m1cg" path="res://game/gameplay_DEPRECATED.tscn" id="16_02hr3"]
+[ext_resource type="Texture2D" uid="uid://wcam1vejievh" path="res://textures/spotlight.jpg" id="16_y7tij"]
+[ext_resource type="Texture2D" uid="uid://dgik1kkbdehcy" path="res://textures/ZVUCNIK.png" id="19_i7usx"]
+[ext_resource type="Texture2D" uid="uid://bl4afqx6neajm" path="res://textures/KRUG2.png" id="20_56yly"]
+[ext_resource type="Script" path="res://game/Zvucnik.gd" id="20_crcnt"]
+[ext_resource type="Texture2D" uid="uid://baa67id6aiwd" path="res://textures/KRUG1.png" id="21_uw2ct"]
+[ext_resource type="Script" path="res://game/Reflektor.gd" id="23_s02pm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bwdna"]
 
@@ -88,11 +95,26 @@ scale_curve = SubResource("CurveTexture_p20xd")
 color = Color(0.486275, 0.654902, 0.721569, 0.839216)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gb0n7"]
-size = Vector2(1180, 62)
+size = Vector2(1324, 62)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pa75b"]
+light_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_exm5c"]
 font = ExtResource("3_1hhca")
 font_size = 36
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc4qr"]
+size = Vector2(1301.97, 1500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ddyi"]
+size = Vector2(1500, 966.275)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1qvb7"]
+polygon = PackedVector2Array(722, 440, 737, 449, 768, 455, 823, 457, 860, 454, 882, 450, 896, 439, 897, 454, 885, 464, 831, 473, 768, 471, 721, 459, 719, 445)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_rrolb"]
+polygon = PackedVector2Array(347, 439, 346, 443, 351, 454, 356, 461, 395, 470, 431, 473, 474, 472, 508, 465, 524, 458, 526, 451, 528, 439, 510, 448, 474, 456, 422, 457, 393, 453, 370, 450, 359, 448)
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -199,8 +221,10 @@ texture = ExtResource("9_5fuft")
 [node name="DipParticles" type="GPUParticles2D" parent="Levo/Pop/Umocilica"]
 z_index = -28
 position = Vector2(0, -721.69)
+emitting = false
 amount = 143
 process_material = SubResource("ParticleProcessMaterial_7kcg1")
+one_shot = true
 speed_scale = 1.95
 explosiveness = 1.0
 
@@ -211,7 +235,7 @@ texture = ExtResource("10_7mlnn")
 [node name="Pod" type="StaticBody2D" parent="Levo/Pop"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/Pop/Pod"]
-position = Vector2(22.93, 121.895)
+position = Vector2(37.93, 125)
 shape = SubResource("RectangleShape2D_gb0n7")
 
 [node name="Markers" type="Node2D" parent="Levo/Pop"]
@@ -239,17 +263,33 @@ position = Vector2(-222.07, 5.00001)
 
 [node name="Indicator" type="Node2D" parent="Levo/Pop"]
 z_index = 40
+material = SubResource("CanvasItemMaterial_pa75b")
 position = Vector2(168, 0)
 script = ExtResource("10_hjbfl")
 
 [node name="Arrow" type="Sprite2D" parent="Levo/Pop/Indicator"]
 modulate = Color(0.741176, 0.360784, 0.360784, 1)
+use_parent_material = true
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("10_pergn")
 
 [node name="Outline" type="Sprite2D" parent="Levo/Pop/Indicator"]
+use_parent_material = true
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("11_jkcqr")
+
+[node name="PointLight2D" type="PointLight2D" parent="Levo/Pop"]
+position = Vector2(13.93, 0)
+energy = 0.5
+blend_mode = 1
+texture = ExtResource("15_u1l26")
+texture_scale = 5.04
+
+[node name="diectionacl" type="PointLight2D" parent="Levo/Pop"]
+position = Vector2(-30.07, -175)
+color = Color(0, 0, 0, 1)
+energy = 0.5
+texture = ExtResource("16_y7tij")
 
 [node name="Completed" type="Label" parent="Levo"]
 layout_mode = 0
@@ -288,13 +328,102 @@ offset_bottom = 51.0
 texture = ExtResource("15_16dh5")
 expand_mode = 1
 
+[node name="DesniZvucnik" type="Sprite2D" parent="Levo"]
+position = Vector2(1208, 328)
+scale = Vector2(0.195, 0.195)
+texture = ExtResource("19_i7usx")
+script = ExtResource("20_crcnt")
+
+[node name="GornjiKrug" type="Sprite2D" parent="Levo/DesniZvucnik"]
+position = Vector2(-258.03, -212.87)
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("20_56yly")
+offset = Vector2(236.65, 223.51)
+
+[node name="DonjiKrug" type="Sprite2D" parent="Levo/DesniZvucnik"]
+position = Vector2(-258.03, 379.49)
+scale = Vector2(1.02, 1.02)
+texture = ExtResource("21_uw2ct")
+offset = Vector2(247.28, -368.23)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Levo/DesniZvucnik"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/DesniZvucnik/StaticBody2D"]
+position = Vector2(0, 125.475)
+shape = SubResource("RectangleShape2D_lc4qr")
+
+[node name="Impulse" type="Area2D" parent="Levo/DesniZvucnik"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/DesniZvucnik/Impulse"]
+position = Vector2(-1424.33, 0)
+shape = SubResource("RectangleShape2D_6ddyi")
+
+[node name="LeviZvucnik" type="Sprite2D" parent="Levo"]
+position = Vector2(75.015, 328)
+scale = Vector2(-0.195, 0.195)
+texture = ExtResource("19_i7usx")
+script = ExtResource("20_crcnt")
+
+[node name="GornjiKrug" type="Sprite2D" parent="Levo/LeviZvucnik"]
+position = Vector2(-258.03, -212.87)
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("20_56yly")
+offset = Vector2(236.65, 223.51)
+
+[node name="DonjiKrug" type="Sprite2D" parent="Levo/LeviZvucnik"]
+position = Vector2(-258.03, 379.49)
+scale = Vector2(1.02, 1.02)
+texture = ExtResource("21_uw2ct")
+offset = Vector2(247.28, -368.23)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Levo/LeviZvucnik"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/LeviZvucnik/StaticBody2D"]
+position = Vector2(0, 125.475)
+shape = SubResource("RectangleShape2D_lc4qr")
+
+[node name="Impulse" type="Area2D" parent="Levo/LeviZvucnik"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/LeviZvucnik/Impulse"]
+position = Vector2(-1424.32, 0)
+shape = SubResource("RectangleShape2D_6ddyi")
+
+[node name="LeviReflektor" type="PointLight2D" parent="Levo"]
+position = Vector2(148.86, 117.945)
+rotation = -0.942478
+shadow_enabled = true
+texture = ExtResource("16_y7tij")
+offset = Vector2(0, 418.58)
+texture_scale = 0.7
+script = ExtResource("23_s02pm")
+
+[node name="DesniReflektor" type="PointLight2D" parent="Levo"]
+position = Vector2(1141.36, 96)
+rotation = 0.942478
+shadow_enabled = true
+texture = ExtResource("16_y7tij")
+offset = Vector2(0, 418.58)
+texture_scale = 0.7
+script = ExtResource("23_s02pm")
+
+[node name="Occluder" type="LightOccluder2D" parent="Levo"]
+occluder = SubResource("OccluderPolygon2D_1qvb7")
+
+[node name="Occluder2" type="LightOccluder2D" parent="Levo"]
+occluder = SubResource("OccluderPolygon2D_rrolb")
+
 [node name="Desno" type="Control" parent="."]
 clip_contents = true
 layout_mode = 1
-anchor_left = 0.667
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 0
+offset_left = 526.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
@@ -311,6 +440,8 @@ offset_left = 64.0
 offset_top = 64.0
 offset_right = -64.0
 offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("11_65x11")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Desno/MainMenu"]
@@ -326,11 +457,17 @@ theme_override_constants/separation = 40
 
 [node name="PlayNormalModeButton" type="Button" parent="Desno/MainMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.407843, 0.407843, 0.407843, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 64
 text = "Play"
 
 [node name="Quit" type="Button" parent="Desno/MainMenu/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.407843, 0.407843, 0.407843, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
 text = "Quit"
 
 [node name="GameOver" type="Control" parent="Desno"]

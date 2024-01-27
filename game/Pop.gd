@@ -102,6 +102,7 @@ func on_baby_pickup():
 
 func on_baby_dip():
 	$Umocilica/DipParticles.emitting = true
+	Global.play_sound(preload("res://audio/voda.ogg"),6.5)
 	if Beat.silly_mode:
 		var tween = create_tween()
 		scale = Vector2(0.9,0.9)

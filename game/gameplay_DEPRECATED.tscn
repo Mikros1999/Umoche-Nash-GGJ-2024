@@ -44,6 +44,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Indicators" type="Node2D" parent="."]
+visible = false
 script = SubResource("GDScript_pn5h4")
 font = ExtResource("1_ax8xq")
 

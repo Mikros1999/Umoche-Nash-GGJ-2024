@@ -1,10 +1,26 @@
 greska
-streak
 pause
 eksplozija
-stackovanje beba
-zumira facu
+
+win lose condition (optional)
+
+zvukovi sound effect bebe plakanje
+ obrijati bradu
 
 za mariju
+crna beba
 pozadina
-zvucnici u pozadini
+
+
+
+
+
+
+
+
+
+
+
+zumira facu
+
+svetlo koje se okrece prema strelici

@@ -17,4 +17,4 @@ func silly_mode_ready():
 
 func _process(delta):
 	t+=delta
-	if t > 6.0: queue_free()
+	if t > 60000.0: queue_free()
