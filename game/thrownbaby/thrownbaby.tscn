@@ -1,9 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://iaph8ls4rv1s"]
+[gd_scene load_steps=4 format=3 uid="uid://iaph8ls4rv1s"]
 
 [ext_resource type="Script" path="res://game/thrownbaby/thrownbaby.gd" id="1_gw3d3"]
 [ext_resource type="Texture2D" uid="uid://dhxnvkwhjgx1s" path="res://textures/BEBA VISI.png" id="1_rurj2"]
 
-[node name="Thrownbaby" type="Sprite2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_bnjyy"]
+radius = 41.05
+
+[node name="Thrownbaby" type="RigidBody2D"]
+z_index = -5
+gravity_scale = 1.415
+script = ExtResource("1_gw3d3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bnjyy")
+
+[node name="Baby" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_rurj2")
-script = ExtResource("1_gw3d3")

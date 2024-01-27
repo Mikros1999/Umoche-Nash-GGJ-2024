@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://8g7kfpku1toy"]
+[gd_scene load_steps=22 format=3 uid="uid://8g7kfpku1toy"]
 
 [ext_resource type="Script" path="res://game/Pop.gd" id="1_47122"]
 [ext_resource type="Texture2D" uid="uid://twhfnek65nmn" path="res://icon.svg" id="1_lwe8o"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cggm6jgidq7r5" path="res://textures/STO ZA BEBU.png" id="5_5bnvx"]
 [ext_resource type="Shader" path="res://game/bebashader.gdshader" id="5_niwls"]
 [ext_resource type="Texture2D" uid="uid://blf315kml677k" path="res://textures/background.png" id="7_1skec"]
+[ext_resource type="Texture2D" uid="uid://c3w62jgh4qs6g" path="res://textures/umocilica.png" id="8_x8148"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_harvr"]
 
@@ -36,6 +37,33 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jbjjv"]
 shader = SubResource("Shader_4jcpv")
 shader_parameter/t = 0.0
+
+[sub_resource type="Curve" id="Curve_8h1jl"]
+_data = [Vector2(0, 0.989011), 0.0, 0.0, 0, 0, Vector2(0.331897, 0.659341), 0.0, 0.0, 0, 0, Vector2(0.978448, 0), 1.79004, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_p20xd"]
+curve = SubResource("Curve_8h1jl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7kcg1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(249.335, 156.765, 1)
+spread = 180.0
+initial_velocity_min = 542.2
+initial_velocity_max = 1947.6
+gravity = Vector3(0, 311.395, 0)
+scale_min = 9.75
+scale_max = 9.85
+scale_curve = SubResource("CurveTexture_p20xd")
+color = Color(0, 0.698039, 0.952941, 0.839216)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gb0n7"]
+size = Vector2(965, 62)
+
+[sub_resource type="LabelSettings" id="LabelSettings_exm5c"]
+font = ExtResource("3_1hhca")
+font_size = 36
 
 [sub_resource type="GDScript" id="GDScript_pn5h4"]
 script/source = "extends Node2D
@@ -82,10 +110,13 @@ offset_bottom = 399.0
 text = "Idle"
 
 [node name="Pop" type="Node2D" parent="Levo"]
+position = Vector2(447.07, 345)
 script = ExtResource("1_47122")
+completed_label_path = NodePath("../Completed")
+failed_label_path = NodePath("../Failed")
 
 [node name="Pop" type="Sprite2D" parent="Levo/Pop"]
-position = Vector2(331, 395)
+position = Vector2(-25, 15)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_6s8in")
 
@@ -96,7 +127,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_tdy0c")
 
 [node name="DipBeba" type="Sprite2D" parent="Levo/Pop/Pop"]
-visible = false
+z_index = 1
 position = Vector2(195, 400)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_tdy0c")
@@ -114,17 +145,17 @@ texture = ExtResource("3_tdy0c")
 position = Vector2(260, -900)
 
 [node name="Sto" type="Sprite2D" parent="Levo/Pop"]
-position = Vector2(517, 546)
+position = Vector2(185, 166)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_5bnvx")
 
 [node name="Beba" type="Sprite2D" parent="Levo/Pop/Sto"]
 material = SubResource("ShaderMaterial_yfktu")
-position = Vector2(50, -1180)
+position = Vector2(-190, -1180)
 texture = ExtResource("4_qultv")
 
 [node name="Sto2" type="Sprite2D" parent="Levo/Pop"]
-position = Vector2(205, 546)
+position = Vector2(-184.62, 166)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_5bnvx")
 
@@ -137,9 +168,69 @@ texture = ExtResource("3_tdy0c")
 
 [node name="Background" type="Sprite2D" parent="Levo/Pop"]
 z_index = -25
-position = Vector2(540, -101)
+position = Vector2(208, -481)
 scale = Vector2(0.52, 0.52)
 texture = ExtResource("7_1skec")
+
+[node name="Umocilica" type="Sprite2D" parent="Levo/Pop"]
+position = Vector2(8.71509, 194.045)
+scale = Vector2(0.135, 0.135)
+texture = ExtResource("8_x8148")
+
+[node name="DipParticles" type="GPUParticles2D" parent="Levo/Pop/Umocilica"]
+z_index = 2
+position = Vector2(0, -721.69)
+emitting = false
+amount = 143
+process_material = SubResource("ParticleProcessMaterial_7kcg1")
+one_shot = true
+speed_scale = 1.95
+explosiveness = 1.0
+
+[node name="Pod" type="StaticBody2D" parent="Levo/Pop"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/Pop/Pod"]
+position = Vector2(36.86, 121.895)
+shape = SubResource("RectangleShape2D_gb0n7")
+
+[node name="Completed" type="Label" parent="Levo"]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 50.0
+offset_right = 314.0
+offset_bottom = 103.0
+text = "0"
+label_settings = SubResource("LabelSettings_exm5c")
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Levo/Completed"]
+modulate = Color(23.077, 3.43, 0, 1)
+layout_mode = 0
+offset_left = -58.0
+offset_right = -7.0
+offset_bottom = 51.0
+texture = ExtResource("1_lwe8o")
+expand_mode = 1
+
+[node name="Failed" type="Label" parent="Levo"]
+layout_mode = 0
+offset_left = 425.37
+offset_top = 53.0
+offset_right = 757.371
+offset_bottom = 105.0
+text = "0"
+label_settings = SubResource("LabelSettings_exm5c")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Levo/Failed"]
+modulate = Color(1, 0.294118, 0.286275, 1)
+layout_mode = 0
+offset_left = 342.0
+offset_right = 393.0
+offset_bottom = 51.0
+texture = ExtResource("1_lwe8o")
+expand_mode = 1
 
 [node name="Desno" type="Control" parent="."]
 clip_contents = true

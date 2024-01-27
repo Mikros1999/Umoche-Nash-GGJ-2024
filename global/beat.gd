@@ -2,6 +2,7 @@ extends CanvasLayer
 
 signal hit_success
 signal hit_fail
+signal on_beat
 
 enum Judgement {
 	TOO_EARLY = -2,
@@ -10,48 +11,6 @@ enum Judgement {
 	LATE = 1,
 	TOO_LATE = 2
 }
- 
-# TODO ovo su stejtovi koji nam za sad trebaju, implementiraj kako hoces
-#var stateSequence = [
-#	"IdleState",
-#	"TakeBabyState",
-#	"HoldBabyState",
-#	"DipBabyState",
-#	"HoldBabyState",
-#	"PutAwayBabyState"
-#]
-#
-#var i = 0
-#var state = "IdleState"
-#
-# TODO placeholder za prebacivanje stejta na sledeci
-# nece moci ovako
-#func set_state(string: String):
-#	if string == "NextState"
-#		if i < stateSequence.size()-1 and i >= 0:
-#			i++
-#		else:
-#			i = 0
-#	elif string == "FailState":
-#		i = 0
-#	state = stateSequence[i]
-#   TODO make scene change with
-#
-# TODO plejsholder za proveru stejta i setovanje odgovarajuceg sprajta
-#func check_state():
-#	match state:
-#		"IdleState":
-#			#TODO set appropriate sprite
-#		"TakeBabyState":
-#			#TODO set appropriate sprite
-#		"HoldBabyState":
-#			#TODO set appropriate sprite
-#		"DipBabyState":
-#			#TODO set appropriate sprite
-#		"PutAwayBabyState":
-#			#TODO set appropriate sprite
-#		"FailState":
-#			#TODO set appropriate sprite
 
 class Tile: # take
 	var key: int
@@ -64,30 +23,29 @@ class Tile: # take
 		c.draw_indicator(texture,beat,OS.get_keycode_string(key))
 		pass
 
-var delay: float = 0.48
+var delay: float = 0.675
 var pitch: float = 1.0 : set = _set_pitch
-var bpm: float = 96
+var bpm: float = 95.957
 var current_beat: float = 0.0
 var last_frame_beat: float = 0.0
 var playing: bool = false
 var audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
 var indicators: CanvasItem
-var indicator_speed: float = 400.0
+var indicator_speed: float = 600.0
 var tiles: Array[Tile] = []
+var silly_mode: bool = false
 
-
-var flashbang: ColorRect = ColorRect.new()
 
 func _ready():
-	for i in range(12,100):
-		tiles.append(Tile.new([KEY_SPACE,KEY_A,KEY_S,KEY_D,KEY_F][randi()%5],i*1.0+beat_to_time(delay)))
-	add_child(flashbang)
-	flashbang.anchors_preset = 15
+	for i in range(12,206):
+		tiles.append(Tile.new([KEY_UP,KEY_DOWN,KEY_LEFT,KEY_RIGHT][randi()%4],i*1.0+beat_to_time(delay)))
 	add_child(audio_player)
 	audio_player.pitch_scale = pitch
 	start_song(preload("res://music/gospodipomiluj.ogg"))
 	var tween = create_tween()
-	tween.tween_property(self,"pitch",2.0,75.0)
+	tween.tween_property(self,"pitch",1.4,110.0)
+	#tween.tween_interval(3.0)
+	#tween.tween_property(self,"pitch",1.0,0.0)
 
 func _process(delta):
 	if playing:
@@ -95,10 +53,8 @@ func _process(delta):
 		if abs(audio_player.get_playback_position()-beat_to_time(current_beat/bpm*60.0)) < 0.02:
 			current_beat = time_to_beat(audio_player.get_playback_position())
 		var bd = time_to_beat(delay)
-		if fmod(last_frame_beat+bd,2.0) > fmod(current_beat+bd,2.0):
-			flashbang.color = Color.WHITE
-		else:
-			flashbang.color = Color(1.0,1.0,1.0,0.0)
+		if fmod(last_frame_beat-bd,1.0) > fmod(current_beat-bd,1.0):
+			emit_signal("on_beat")
 		last_frame_beat = current_beat
 		
 		_process_tiles(delta)
