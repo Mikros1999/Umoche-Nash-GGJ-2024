@@ -20,6 +20,12 @@ var textures: Array[Texture] = [
 	preload("res://textures/POP STAVLJA.png"),
 ]
 
+var points_success_press = 100
+var points_failed_press = 0
+var points_success_baby = 600
+var points_failed_baby = -500
+
+var points: int = 0 : set = set_points
 
 var state: int = State.IDLE : set = set_state
 
@@ -57,7 +63,12 @@ func _physics_process(delta): # smesnoo je
 		get_parent().add_child(s2)
 		s2.global_position.x += 100
 	
+func set_points(value: int):
+	points = value
+	$"../Score".text = str(value)
+	
 func on_success():
+	self.points += points_success_press
 	print("on success")
 	self.state = (state + 1 + (1 if state == State.FAIL else 0)) % (State.size()-1)
 	var old_scale = $Pop.scale
@@ -66,6 +77,7 @@ func on_success():
 	tween.tween_property($Pop,"scale" ,old_scale,0.1)
 
 func on_fail():
+	self.points += points_failed_press
 	baby_streak = 0
 	self.state = State.FAIL
 
@@ -111,6 +123,7 @@ func on_baby_dip():
 func on_baby_put():
 	completed_babies += 1
 	baby_streak += 1
+	self.points += points_success_baby
 	if baby_streak == 5:
 		start_streak()
 	completed_label.text = str(completed_babies)
@@ -129,6 +142,7 @@ func spawn_baby():
 	tween.tween_property(baby_material,"shader_parameter/t",1.0,Beat.beat_to_time(0.49))
 
 func throw_baby():
+	self.points += points_failed_baby
 	var p = $Pop/BabyThrowPos.global_position
 	var baby = preload("res://game/thrownbaby/thrownbaby.tscn").instantiate()
 	baby.velocity = Vector2.UP.rotated((randf()*0.2+0.8)*(randi()%2*2-1)*0.3)*900.0
