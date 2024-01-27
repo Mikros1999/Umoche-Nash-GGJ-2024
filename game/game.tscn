@@ -9,7 +9,7 @@ func _ready():
 	Beat.indicators = self
 
 func _draw():
-	Beat.draw_babies()
+	Beat.draw_tiles()
 
 func draw_indicator(texture: Texture2D, beat: float, key: String):
 	var diff = Beat.beat_to_time(Beat.current_beat-beat)
@@ -59,9 +59,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 1.19199
-offset_top = -301.0
-offset_right = 20.192
+offset_left = 6.88
+offset_top = -99.0
+offset_right = 19.88
 grow_horizontal = 2
 grow_vertical = 0
 
