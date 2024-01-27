@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://1ssoyii7m1cg"]
+
+[ext_resource type="FontFile" uid="uid://b2esb7n31e5ih" path="res://ui/fonts/Freshman.ttf" id="1_ax8xq"]
+[ext_resource type="Texture2D" uid="uid://c1ksulofsduws" path="res://textures/buttons/BLANK_BTN.png" id="2_w3g5j"]
+
+[sub_resource type="GDScript" id="GDScript_pn5h4"]
+script/source = "extends Node2D
+
+@export var font: Font
+
+func _ready():
+	Beat.indicators = self
+
+
+func _draw():
+	Beat.draw_tiles()
+
+
+func draw_indicator(beat: float, key: int):
+	var tex = preload(\"res://textures/buttons/STRELICA_SA_CRTOM.png\")
+	var diff = Beat.beat_to_time(Beat.current_beat-beat)
+	var y_position = diff*Beat.indicator_speed
+	var pos = Vector2(0.0,y_position)
+	var rot = 0.0
+	match key:
+		KEY_UP: rot = PI/2.0
+		KEY_DOWN: rot = -PI/2.0
+		KEY_LEFT: rot = 0.0
+		KEY_RIGHT: rot = PI
+	draw_set_transform(pos,rot,Vector2.ONE)
+	draw_texture_rect(tex,Rect2(Vector2(-32,-32),Vector2(64,64)),false)
+
+"
+
+[node name="Gameplay" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Indicators" type="Node2D" parent="."]
+script = SubResource("GDScript_pn5h4")
+font = ExtResource("1_ax8xq")
+
+[node name="TextureRect" type="TextureRect" parent="Indicators"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_w3g5j")
+expand_mode = 1
+stretch_mode = 5

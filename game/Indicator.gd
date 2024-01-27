@@ -11,6 +11,8 @@ const rotations = {
 
 var h: float = 0.0
 
+
+
 func _process(delta):
 	h += delta
 	if Beat.tiles.size() == 0: return
@@ -21,4 +23,6 @@ func _process(delta):
 	$Outline.scale = Vector2.ONE*clamp(-diff,0.0,10000.0)
 	$Outline.modulate.a = clamp(pow(1.0+diff,2.0),0.0,1.0)
 	$Arrow.modulate = Color.from_hsv(fmod(h,1.0),1.0,1.0,1.0)
+	$Arrow.modulate.a = 1.0-clamp(-diff,0.0,1.0)
+	$Arrow.scale = Vector2.ONE * 0.1 * (1.0-clamp(-diff,0.0,1.0))
 

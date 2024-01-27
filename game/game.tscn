@@ -5,20 +5,21 @@
 [ext_resource type="FontFile" uid="uid://b2esb7n31e5ih" path="res://ui/fonts/Freshman.ttf" id="3_1hhca"]
 [ext_resource type="Texture2D" uid="uid://dhxnvkwhjgx1s" path="res://textures/BEBA VISI.png" id="3_tdy0c"]
 [ext_resource type="Texture2D" uid="uid://cuppx04dnphfa" path="res://textures/BEBA SEDI.png" id="4_qultv"]
-[ext_resource type="Texture2D" uid="uid://cggm6jgidq7r5" path="res://textures/STO ZA BEBU.png" id="5_5bnvx"]
+[ext_resource type="Texture2D" uid="uid://b5w4vsjqee8io" path="res://textures/BRADA.png" id="5_fnu1p"]
+[ext_resource type="Texture2D" uid="uid://b2ggsy13dut1m" path="res://textures/STO.png" id="5_h6ttc"]
 [ext_resource type="Shader" path="res://game/bebashader.gdshader" id="5_niwls"]
 [ext_resource type="Texture2D" uid="uid://blf315kml677k" path="res://textures/background.png" id="7_1skec"]
 [ext_resource type="Texture2D" uid="uid://qb4i8qd3ge2g" path="res://textures/PREDNJA_UMOCILICA.png" id="9_5fuft"]
 [ext_resource type="Texture2D" uid="uid://bkqfrnv6udju3" path="res://textures/ZADDNJA_UMOCILICA.png" id="10_7mlnn"]
 [ext_resource type="Script" path="res://game/Indicator.gd" id="10_hjbfl"]
 [ext_resource type="Texture2D" uid="uid://cchni3te30boj" path="res://textures/buttons/PUNA_STRELICA.png" id="10_pergn"]
-[ext_resource type="Texture2D" uid="uid://c1ksulofsduws" path="res://textures/buttons/BLANK_BTN.png" id="11_5w1v6"]
 [ext_resource type="Script" path="res://game/MainMenu.gd" id="11_65x11"]
 [ext_resource type="Texture2D" uid="uid://cbo8m28j7ajjl" path="res://textures/buttons/BELI_OUTLINE_STRELICA.png" id="11_jkcqr"]
 [ext_resource type="Texture2D" uid="uid://dabpxlub52lib" path="res://textures/buttons/HOME_BTN.png" id="12_ncivn"]
 [ext_resource type="Texture2D" uid="uid://b148kivcbh5mo" path="res://textures/buttons/ANDJEO_BEBA.png" id="14_dx3ls"]
 [ext_resource type="Texture2D" uid="uid://dl1w4lvb4bv21" path="res://textures/buttons/RELOAD_BTN.png" id="14_ux28w"]
 [ext_resource type="Texture2D" uid="uid://cu4ximd171ho2" path="res://textures/buttons/DJAVO_BEBA.png" id="15_16dh5"]
+[ext_resource type="PackedScene" uid="uid://1ssoyii7m1cg" path="res://game/gameplay_DEPRECATED.tscn" id="16_02hr3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bwdna"]
 
@@ -84,43 +85,14 @@ gravity = Vector3(0, 311.395, 0)
 scale_min = 9.75
 scale_max = 9.85
 scale_curve = SubResource("CurveTexture_p20xd")
-color = Color(0, 0.698039, 0.952941, 0.839216)
+color = Color(0.486275, 0.654902, 0.721569, 0.839216)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gb0n7"]
-size = Vector2(965, 62)
+size = Vector2(1180, 62)
 
 [sub_resource type="LabelSettings" id="LabelSettings_exm5c"]
 font = ExtResource("3_1hhca")
 font_size = 36
-
-[sub_resource type="GDScript" id="GDScript_pn5h4"]
-script/source = "extends Node2D
-
-@export var font: Font
-
-func _ready():
-	Beat.indicators = self
-
-
-func _draw():
-	Beat.draw_tiles()
-
-
-func draw_indicator(beat: float, key: int):
-	var tex = preload(\"res://textures/buttons/STRELICA_SA_CRTOM.png\")
-	var diff = Beat.beat_to_time(Beat.current_beat-beat)
-	var y_position = diff*Beat.indicator_speed
-	var pos = Vector2(0.0,y_position)
-	var rot = 0.0
-	match key:
-		KEY_UP: rot = PI/2.0
-		KEY_DOWN: rot = -PI/2.0
-		KEY_LEFT: rot = 0.0
-		KEY_RIGHT: rot = PI
-	draw_set_transform(pos,rot,Vector2.ONE)
-	draw_texture_rect(tex,Rect2(Vector2(-32,-32),Vector2(64,64)),false)
-
-"
 
 [node name="Game" type="Control"]
 layout_mode = 3
@@ -134,12 +106,15 @@ theme = SubResource("Theme_2c27w")
 [node name="Levo" type="Control" parent="."]
 clip_contents = true
 layout_mode = 1
-anchor_right = 0.667
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Levo"]
+visible = false
 layout_mode = 0
 offset_left = 374.0
 offset_top = 253.0
@@ -148,7 +123,7 @@ offset_bottom = 399.0
 text = "Idle"
 
 [node name="Pop" type="Node2D" parent="Levo"]
-position = Vector2(447.07, 345)
+position = Vector2(623.07, 345)
 script = ExtResource("1_47122")
 completed_label_path = NodePath("../Completed")
 failed_label_path = NodePath("../Failed")
@@ -182,10 +157,15 @@ texture = ExtResource("3_tdy0c")
 [node name="BabyThrowPos" type="Marker2D" parent="Levo/Pop/Pop"]
 position = Vector2(260, -900)
 
+[node name="Brada" type="Sprite2D" parent="Levo/Pop/Pop"]
+position = Vector2(-17.175, -478.81)
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("5_fnu1p")
+
 [node name="Sto" type="Sprite2D" parent="Levo/Pop"]
 position = Vector2(185, 166)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("5_5bnvx")
+texture = ExtResource("5_h6ttc")
 
 [node name="Beba" type="Sprite2D" parent="Levo/Pop/Sto"]
 material = SubResource("ShaderMaterial_yfktu")
@@ -193,9 +173,9 @@ position = Vector2(-190, -1180)
 texture = ExtResource("4_qultv")
 
 [node name="Sto2" type="Sprite2D" parent="Levo/Pop"]
-position = Vector2(-184.62, 166)
+position = Vector2(-185.62, 165)
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("5_5bnvx")
+texture = ExtResource("5_h6ttc")
 
 [node name="Beba" type="Sprite2D" parent="Levo/Pop/Sto2"]
 material = SubResource("ShaderMaterial_jbjjv")
@@ -206,8 +186,8 @@ texture = ExtResource("3_tdy0c")
 
 [node name="Background" type="Sprite2D" parent="Levo/Pop"]
 z_index = -25
-position = Vector2(208, -449)
-scale = Vector2(0.52, 0.52)
+position = Vector2(5.03, -232.775)
+scale = Vector2(0.52, 0.331213)
 texture = ExtResource("7_1skec")
 
 [node name="Umocilica" type="Sprite2D" parent="Levo/Pop"]
@@ -217,12 +197,10 @@ scale = Vector2(0.135, 0.135)
 texture = ExtResource("9_5fuft")
 
 [node name="DipParticles" type="GPUParticles2D" parent="Levo/Pop/Umocilica"]
-z_index = 2
+z_index = -28
 position = Vector2(0, -721.69)
-emitting = false
 amount = 143
 process_material = SubResource("ParticleProcessMaterial_7kcg1")
-one_shot = true
 speed_scale = 1.95
 explosiveness = 1.0
 
@@ -233,31 +211,31 @@ texture = ExtResource("10_7mlnn")
 [node name="Pod" type="StaticBody2D" parent="Levo/Pop"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/Pop/Pod"]
-position = Vector2(36.86, 121.895)
+position = Vector2(22.93, 121.895)
 shape = SubResource("RectangleShape2D_gb0n7")
 
 [node name="Markers" type="Node2D" parent="Levo/Pop"]
 
 [node name="Marker-1" type="Marker2D" parent="Levo/Pop/Markers"]
-position = Vector2(170.795, -66.5)
+position = Vector2(165.93, -78)
 
 [node name="Marker0" type="Marker2D" parent="Levo/Pop/Markers"]
-position = Vector2(171.8, -68.275)
+position = Vector2(171.93, -77)
 
 [node name="Marker1" type="Marker2D" parent="Levo/Pop/Markers"]
-position = Vector2(168.365, -65.77)
+position = Vector2(167.93, -79)
 
 [node name="Marker2" type="Marker2D" parent="Levo/Pop/Markers"]
-position = Vector2(37.37, -121.87)
+position = Vector2(70.93, -170)
 
 [node name="Marker3" type="Marker2D" parent="Levo/Pop/Markers"]
-position = Vector2(9.49, 23.325)
+position = Vector2(6.93, 165)
 
 [node name="Marker4" type="Marker2D" parent="Levo/Pop/Markers"]
-position = Vector2(35.635, -121.92)
+position = Vector2(70.93, -173)
 
 [node name="Marker5" type="Marker2D" parent="Levo/Pop/Markers"]
-position = Vector2(-150.995, 33.615)
+position = Vector2(-222.07, 5.00001)
 
 [node name="Indicator" type="Node2D" parent="Levo/Pop"]
 z_index = 40
@@ -293,9 +271,9 @@ expand_mode = 1
 
 [node name="Failed" type="Label" parent="Levo"]
 layout_mode = 0
-offset_left = 425.37
+offset_left = 886.37
 offset_top = 53.0
-offset_right = 757.371
+offset_right = 1218.37
 offset_bottom = 105.0
 text = "0"
 label_settings = SubResource("LabelSettings_exm5c")
@@ -320,36 +298,9 @@ grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="Gameplay" type="Control" parent="Desno"]
+[node name="Gameplay" parent="Desno" instance=ExtResource("16_02hr3")]
+visible = false
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = -64.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="Indicators" type="Node2D" parent="Desno/Gameplay"]
-script = SubResource("GDScript_pn5h4")
-font = ExtResource("3_1hhca")
-
-[node name="TextureRect" type="TextureRect" parent="Desno/Gameplay/Indicators"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("11_5w1v6")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="MainMenu" type="Control" parent="Desno"]
 layout_mode = 1
@@ -423,8 +374,9 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Background" type="Sprite2D" parent="Desno"]
+visible = false
 z_index = -25
-position = Vector2(-373.76, 190)
+position = Vector2(-383.76, 152)
 rotation = -1.5708
 scale = Vector2(0.439252, 0.439252)
 texture = ExtResource("7_1skec")

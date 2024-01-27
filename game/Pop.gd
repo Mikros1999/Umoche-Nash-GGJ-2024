@@ -41,6 +41,15 @@ func _ready():
 	$Pop/HoldBeba2.visible = false
 	$Pop/DipBeba.visible = false
 
+var h: float = 0.0
+
+func _process(delta):
+	if baby_streak >= 2:
+		h += delta
+		$Pop/Brada.modulate = Color.from_hsv(fmod(h,1.0),0.8,0.8,1.0);
+	else:
+		$Pop/Brada.modulate = Color.WHITE
+
 func _physics_process(delta): # smesnoo je
 	if Beat.silly_mode and randi()%500 == 1:
 		var s2 = duplicate()
@@ -57,7 +66,7 @@ func on_success():
 	tween.tween_property($Pop,"scale" ,old_scale,0.1)
 
 func on_fail():
-	print("on fail")
+	baby_streak = 0
 	self.state = State.FAIL
 
 func set_state(value: int):
@@ -101,12 +110,17 @@ func on_baby_dip():
 func on_baby_put():
 	completed_babies += 1
 	baby_streak += 1
+	if baby_streak == 5:
+		start_streak()
 	completed_label.text = str(completed_babies)
 	holding_baby = false
 	baby2_material.set("shader_parameter/t",1.0)
 	var tween = create_tween()
 	tween.tween_property(baby2_material,"shader_parameter/t",0.0,Beat.beat_to_time(2.0))
 	spawn_baby()
+
+func start_streak():
+	pass
 
 func spawn_baby():
 	baby_material.set("shader_parameter/t",0.0)
@@ -122,7 +136,6 @@ func throw_baby():
 	holding_baby = false
 	failed_babies += 1
 	failed_label.text = str(failed_babies)
-	baby_streak = 0
 	$Pop/HoldBeba.visible = false
 	$Pop/HoldBeba2.visible = false
 	$Pop/DipBeba.visible = false
