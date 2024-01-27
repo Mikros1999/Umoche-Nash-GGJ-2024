@@ -1,9 +1,10 @@
-zvucnici u pozadini
+greska
 streak
+pause
+eksplozija
 stackovanje beba
 zumira facu
-kontroler dzojped dzojstik 
-main menu
-pause
 
 za mariju
+pozadina
+zvucnici u pozadini

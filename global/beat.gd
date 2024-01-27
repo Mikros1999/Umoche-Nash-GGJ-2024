@@ -85,22 +85,39 @@ func start_song(song: AudioStream):
 	audio_player.play(0.0)
 	playing = true
 
+const controller_inputs = {
+	JOY_BUTTON_A: KEY_DOWN,
+	JOY_BUTTON_B: KEY_RIGHT,
+	JOY_BUTTON_X: KEY_LEFT,
+	JOY_BUTTON_Y: KEY_UP,
+	JOY_BUTTON_DPAD_UP: KEY_UP,
+	JOY_BUTTON_DPAD_DOWN: KEY_DOWN,
+	JOY_BUTTON_DPAD_LEFT: KEY_LEFT,
+	JOY_BUTTON_DPAD_RIGHT: KEY_RIGHT,
+}
+
 func _unhandled_input(event):
 	if not event.is_pressed(): return
 	if tiles.size() == 0: return
+	if event is InputEventJoypadButton:
+		if event.button_index in controller_inputs:
+			handle_input(controller_inputs[event.button_index])
 	if event is InputEventKey:
-		var judgement = handle_judgement(tiles[0])
-		if event.keycode != tiles[0].key: 
-			if judgement != Judgement.TOO_EARLY:
-				tiles.pop_front()
-				print("pogresan input :( 😭❌ ")
-				emit_signal("hit_fail")
-			#TODO Transmit(FailState)
-			return
-		if judgement in [Judgement.TOO_EARLY,Judgement.TOO_LATE]: return
-		tiles.pop_front()
-		print("dobar input ✅✅ 🥰")
-		emit_signal("hit_success")
+		handle_input(event.keycode)
+
+func handle_input(key):
+	var judgement = handle_judgement(tiles[0])
+	if key != tiles[0].key: 
+		if judgement != Judgement.TOO_EARLY:
+			tiles.pop_front()
+			print("pogresan input :( 😭❌ ")
+			emit_signal("hit_fail")
+		#TODO Transmit(FailState)
+		return
+	if judgement in [Judgement.TOO_EARLY,Judgement.TOO_LATE]: return
+	tiles.pop_front()
+	print("dobar input ✅✅ 🥰")
+	emit_signal("hit_success")
 
 func handle_judgement(tile: Tile):
 	var difference = beat_to_time(current_beat - tile.beat)
