@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://8g7kfpku1toy"]
+[gd_scene load_steps=32 format=3 uid="uid://8g7kfpku1toy"]
 
 [ext_resource type="Script" path="res://game/Pop.gd" id="1_47122"]
 [ext_resource type="Texture2D" uid="uid://twhfnek65nmn" path="res://icon.svg" id="1_lwe8o"]
@@ -10,6 +10,29 @@
 [ext_resource type="Shader" path="res://game/bebashader.gdshader" id="5_niwls"]
 [ext_resource type="Texture2D" uid="uid://blf315kml677k" path="res://textures/background.png" id="7_1skec"]
 [ext_resource type="Texture2D" uid="uid://c3w62jgh4qs6g" path="res://textures/umocilica.png" id="8_x8148"]
+[ext_resource type="Texture2D" uid="uid://c1ksulofsduws" path="res://textures/buttons/BLANK_BTN.png" id="11_5w1v6"]
+[ext_resource type="Script" path="res://game/MainMenu.gd" id="11_65x11"]
+[ext_resource type="Texture2D" uid="uid://dabpxlub52lib" path="res://textures/buttons/HOME_BTN.png" id="12_ncivn"]
+[ext_resource type="Texture2D" uid="uid://dl1w4lvb4bv21" path="res://textures/buttons/RELOAD_BTN.png" id="14_ux28w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bwdna"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kbwst"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iwpob"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jc8dr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uu8ry"]
+
+[sub_resource type="Theme" id="Theme_2c27w"]
+default_font = ExtResource("3_1hhca")
+default_font_size = 48
+Button/styles/disabled = SubResource("StyleBoxEmpty_bwdna")
+Button/styles/focus = SubResource("StyleBoxEmpty_kbwst")
+Button/styles/hover = SubResource("StyleBoxEmpty_iwpob")
+Button/styles/normal = SubResource("StyleBoxEmpty_jc8dr")
+Button/styles/pressed = SubResource("StyleBoxEmpty_uu8ry")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_harvr"]
 
@@ -73,15 +96,24 @@ script/source = "extends Node2D
 func _ready():
 	Beat.indicators = self
 
+
 func _draw():
 	Beat.draw_tiles()
 
-func draw_indicator(texture: Texture2D, beat: float, key: String):
+
+func draw_indicator(beat: float, key: int):
+	var tex = preload(\"res://textures/buttons/STRELICA_SA_CRTOM.png\")
 	var diff = Beat.beat_to_time(Beat.current_beat-beat)
 	var y_position = diff*Beat.indicator_speed
-	var pos = Vector2(0.0,y_position)-texture.get_size()/2.0
-	draw_texture(texture,pos)
-	draw_string(font,pos,key,HORIZONTAL_ALIGNMENT_CENTER,-1,48)
+	var pos = Vector2(0.0,y_position)
+	var rot = 0.0
+	match key:
+		KEY_UP: rot = PI/2.0
+		KEY_DOWN: rot = -PI/2.0
+		KEY_LEFT: rot = 0.0
+		KEY_RIGHT: rot = PI
+	draw_set_transform(pos,rot,Vector2.ONE)
+	draw_texture_rect(tex,Rect2(Vector2(-32,-32),Vector2(64,64)),false)
 
 "
 
@@ -92,6 +124,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_2c27w")
 
 [node name="Levo" type="Control" parent="."]
 clip_contents = true
@@ -168,7 +201,7 @@ texture = ExtResource("3_tdy0c")
 
 [node name="Background" type="Sprite2D" parent="Levo/Pop"]
 z_index = -25
-position = Vector2(208, -481)
+position = Vector2(208, -449)
 scale = Vector2(0.52, 0.52)
 texture = ExtResource("7_1skec")
 
@@ -242,29 +275,112 @@ grow_horizontal = 0
 grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="Control" type="Control" parent="Desno"]
+[node name="Gameplay" type="Control" parent="Desno"]
 layout_mode = 1
-anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 6.88
-offset_top = -99.0
-offset_right = 19.88
+offset_top = -64.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Indicators" type="Node2D" parent="Desno/Control"]
+[node name="Indicators" type="Node2D" parent="Desno/Gameplay"]
 script = SubResource("GDScript_pn5h4")
 font = ExtResource("3_1hhca")
 
-[node name="Icon" type="Sprite2D" parent="Desno/Control/Indicators"]
-texture = ExtResource("1_lwe8o")
+[node name="TextureRect" type="TextureRect" parent="Desno/Gameplay/Indicators"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_5w1v6")
+expand_mode = 1
+stretch_mode = 5
 
-[node name="Background" type="Sprite2D" parent="Desno/Control/Indicators"]
+[node name="MainMenu" type="Control" parent="Desno"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -64.0
+offset_bottom = -64.0
+script = ExtResource("11_65x11")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Desno/MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 132.0
+offset_right = -0.23999
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="PlayNormalModeButton" type="Button" parent="Desno/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Play"
+
+[node name="Quit" type="Button" parent="Desno/MainMenu/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="GameOver" type="Control" parent="Desno"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Home" type="TextureButton" parent="Desno/GameOver"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -96.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("12_ncivn")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Home2" type="TextureButton" parent="Desno/GameOver"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -96.0
+offset_right = 96.0
+offset_bottom = -32.0
+grow_vertical = 0
+texture_normal = ExtResource("14_ux28w")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Background" type="Sprite2D" parent="Desno"]
 z_index = -25
-position = Vector2(-593.76, -423)
+position = Vector2(-373.76, 190)
 rotation = -1.5708
 scale = Vector2(0.439252, 0.439252)
 texture = ExtResource("7_1skec")
+
+[connection signal="pressed" from="Desno/MainMenu/VBoxContainer/PlayNormalModeButton" to="Desno/MainMenu" method="_on_play_normal_mode_button_pressed"]
+[connection signal="pressed" from="Desno/MainMenu/VBoxContainer/Quit" to="Desno/MainMenu" method="_on_quit_pressed"]

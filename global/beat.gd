@@ -19,8 +19,7 @@ class Tile: # take
 		self.key = key
 		self.beat = beat
 	func _draw(c: CanvasItem):
-		var texture = preload("res://icon.svg")
-		c.draw_indicator(texture,beat,OS.get_keycode_string(key))
+		c.draw_indicator(beat,key)
 		pass
 
 var delay: float = 0.675
@@ -40,8 +39,6 @@ func _ready():
 	for i in range(12,206):
 		tiles.append(Tile.new([KEY_UP,KEY_DOWN,KEY_LEFT,KEY_RIGHT][randi()%4],i*1.0+beat_to_time(delay)))
 	add_child(audio_player)
-	audio_player.pitch_scale = pitch
-	start_song(preload("res://music/gospodipomiluj.ogg"))
 	var tween = create_tween()
 	tween.tween_property(self,"pitch",1.4,110.0)
 	#tween.tween_interval(3.0)
@@ -50,16 +47,20 @@ func _ready():
 func _process(delta):
 	if playing:
 		current_beat += bpm*delta/60.0*pitch
-		if abs(audio_player.get_playback_position()-beat_to_time(current_beat/bpm*60.0)) < 0.02:
-			current_beat = time_to_beat(audio_player.get_playback_position())
-		var bd = time_to_beat(delay)
-		if fmod(last_frame_beat-bd,1.0) > fmod(current_beat-bd,1.0):
-			emit_signal("on_beat")
-		last_frame_beat = current_beat
-		
+		_sync_beat()
+		_check_if_beat_happened()
 		_process_tiles(delta)
 		
-		indicators.queue_redraw()
+		last_frame_beat = current_beat
+
+func _sync_beat():
+	if abs(audio_player.get_playback_position()-beat_to_time(current_beat/bpm*60.0)) < 0.02:
+		current_beat = time_to_beat(audio_player.get_playback_position())
+
+func _check_if_beat_happened():
+	var bd = time_to_beat(delay)
+	if fmod(last_frame_beat-bd,1.0) > fmod(current_beat-bd,1.0):
+		emit_signal("on_beat")
 
 func _process_tiles(delta):
 	if tiles.size() > 0:
@@ -67,6 +68,7 @@ func _process_tiles(delta):
 			tiles.pop_front()
 			print("zakasnio tile ⏰⏰⏰" + str(current_beat))
 			emit_signal("hit_fail")
+	indicators.queue_redraw()
 			
 func _set_pitch(value):
 	audio_player.pitch_scale = value
@@ -76,9 +78,9 @@ func draw_tiles():
 	for tile in tiles:
 		tile._draw(indicators)
 
-
 func start_song(song: AudioStream):
 	current_beat = 0.0
+	audio_player.pitch_scale = pitch
 	audio_player.stream = song
 	audio_player.play(0.0)
 	playing = true
