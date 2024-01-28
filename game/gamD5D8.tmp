@@ -1,0 +1,803 @@
+[gd_scene load_steps=57 format=3 uid="uid://8g7kfpku1toy"]
+
+[ext_resource type="Script" path="res://game/Pop.gd" id="1_47122"]
+[ext_resource type="Texture2D" uid="uid://dryw871auxpmn" path="res://textures/POP STAVLJA.png" id="2_6s8in"]
+[ext_resource type="FontFile" uid="uid://b2esb7n31e5ih" path="res://ui/fonts/Freshman.ttf" id="3_1hhca"]
+[ext_resource type="Texture2D" uid="uid://dhxnvkwhjgx1s" path="res://textures/BEBA VISI.png" id="3_tdy0c"]
+[ext_resource type="Texture2D" uid="uid://cuppx04dnphfa" path="res://textures/BEBA SEDI.png" id="4_qultv"]
+[ext_resource type="Texture2D" uid="uid://b5w4vsjqee8io" path="res://textures/BRADA.png" id="5_fnu1p"]
+[ext_resource type="Texture2D" uid="uid://b2ggsy13dut1m" path="res://textures/STO.png" id="5_h6ttc"]
+[ext_resource type="Shader" path="res://game/bebashader.gdshader" id="5_niwls"]
+[ext_resource type="Texture2D" uid="uid://blf315kml677k" path="res://textures/background.png" id="7_1skec"]
+[ext_resource type="Texture2D" uid="uid://qb4i8qd3ge2g" path="res://textures/PREDNJA_UMOCILICA.png" id="9_5fuft"]
+[ext_resource type="Texture2D" uid="uid://bkqfrnv6udju3" path="res://textures/ZADDNJA_UMOCILICA.png" id="10_7mlnn"]
+[ext_resource type="Script" path="res://game/Indicator.gd" id="10_hjbfl"]
+[ext_resource type="Texture2D" uid="uid://cchni3te30boj" path="res://textures/buttons/PUNA_STRELICA.png" id="10_pergn"]
+[ext_resource type="Script" path="res://game/MainMenu.gd" id="11_65x11"]
+[ext_resource type="Texture2D" uid="uid://cbo8m28j7ajjl" path="res://textures/buttons/BELI_OUTLINE_STRELICA.png" id="11_jkcqr"]
+[ext_resource type="Texture2D" uid="uid://dabpxlub52lib" path="res://textures/buttons/HOME_BTN.png" id="12_ncivn"]
+[ext_resource type="Texture2D" uid="uid://b148kivcbh5mo" path="res://textures/buttons/ANDJEO_BEBA.png" id="14_dx3ls"]
+[ext_resource type="Texture2D" uid="uid://dl1w4lvb4bv21" path="res://textures/buttons/RELOAD_BTN.png" id="14_ux28w"]
+[ext_resource type="Texture2D" uid="uid://cu4ximd171ho2" path="res://textures/buttons/DJAVO_BEBA.png" id="15_16dh5"]
+[ext_resource type="PackedScene" uid="uid://1ssoyii7m1cg" path="res://game/gameplay_DEPRECATED.tscn" id="16_02hr3"]
+[ext_resource type="Texture2D" uid="uid://wcam1vejievh" path="res://textures/spotlight.jpg" id="16_y7tij"]
+[ext_resource type="Texture2D" uid="uid://85hgkrifpq61" path="res://textures/SPEAKER.png" id="19_45fbq"]
+[ext_resource type="Texture2D" uid="uid://bl4afqx6neajm" path="res://textures/KRUG2.png" id="20_56yly"]
+[ext_resource type="Script" path="res://game/Zvucnik.gd" id="20_crcnt"]
+[ext_resource type="Texture2D" uid="uid://baa67id6aiwd" path="res://textures/KRUG1.png" id="21_uw2ct"]
+[ext_resource type="Script" path="res://game/Labels.gd" id="23_je3ta"]
+[ext_resource type="Script" path="res://game/Reflektor.gd" id="23_s02pm"]
+[ext_resource type="Texture2D" uid="uid://dpkbefheos3gc" path="res://textures/blank_crooss.png" id="24_gbr8p"]
+[ext_resource type="Texture2D" uid="uid://c4g1i854ftctk" path="res://textures/Cross.png" id="24_o1d86"]
+[ext_resource type="Script" path="res://game/GameOver.gd" id="27_ceosw"]
+[ext_resource type="PackedScene" uid="uid://crmc3it5v7e32" path="res://game/explosion/explosion.tscn" id="31_p5v2k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bwdna"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kbwst"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iwpob"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jc8dr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uu8ry"]
+
+[sub_resource type="Theme" id="Theme_2c27w"]
+default_font = ExtResource("3_1hhca")
+default_font_size = 48
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 1)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_bwdna")
+Button/styles/focus = SubResource("StyleBoxEmpty_kbwst")
+Button/styles/hover = SubResource("StyleBoxEmpty_iwpob")
+Button/styles/normal = SubResource("StyleBoxEmpty_jc8dr")
+Button/styles/pressed = SubResource("StyleBoxEmpty_uu8ry")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_harvr"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2wnnt"]
+noise = SubResource("FastNoiseLite_harvr")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yfktu"]
+shader = ExtResource("5_niwls")
+shader_parameter/t = 1.0
+shader_parameter/noise = SubResource("NoiseTexture2D_2wnnt")
+
+[sub_resource type="Shader" id="Shader_4jcpv"]
+code = "shader_type canvas_item;
+uniform float t: hint_range(0.0,1.0) = 0.0;
+void vertex() {
+	VERTEX.x *= pow(t,0.5);
+	VERTEX.y *= pow(t,1.0/6.0);
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jbjjv"]
+shader = SubResource("Shader_4jcpv")
+shader_parameter/t = 0.0
+
+[sub_resource type="Curve" id="Curve_8h1jl"]
+_data = [Vector2(0, 0.989011), 0.0, 0.0, 0, 0, Vector2(0.331897, 0.659341), 0.0, 0.0, 0, 0, Vector2(0.978448, 0), 1.79004, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_p20xd"]
+curve = SubResource("Curve_8h1jl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7kcg1"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(249.335, 156.765, 1)
+spread = 180.0
+initial_velocity_min = 542.2
+initial_velocity_max = 1947.6
+gravity = Vector3(0, 311.395, 0)
+scale_min = 9.75
+scale_max = 9.85
+scale_curve = SubResource("CurveTexture_p20xd")
+color = Color(0.486275, 0.654902, 0.721569, 0.839216)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gb0n7"]
+size = Vector2(1324, 62)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pa75b"]
+light_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lc4qr"]
+size = Vector2(1301.97, 1500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ddyi"]
+size = Vector2(1500, 966.275)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_1qvb7"]
+polygon = PackedVector2Array(722, 440, 737, 449, 768, 455, 823, 457, 860, 454, 882, 450, 896, 439, 897, 454, 885, 464, 831, 473, 768, 471, 721, 459, 719, 445)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_rrolb"]
+polygon = PackedVector2Array(347, 439, 346, 443, 351, 454, 356, 461, 395, 470, 431, 473, 474, 472, 508, 465, 524, 458, 526, 451, 528, 439, 510, 448, 474, 456, 422, 457, 393, 453, 370, 450, 359, 448)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yuy27"]
+light_mode = 1
+
+[sub_resource type="GDScript" id="GDScript_na1g0"]
+resource_name = "Crosses"
+script/source = "extends Control
+
+const quotes = [
+	\"Hevojin los nikakav.\", #0
+	\"Hevojin los nikakav.\", #1
+	\"Ne u zemlji Svetog Save...\", #2
+	\"You need more speed.\", #3
+	\"powerslavlje\", #4
+	\"Sveti Sava would be proud.\" #5
+] 
+
+
+func _ready():
+	set_crosses(0)
+	modulate = Color(1.0,1.0,1.0,0.0)
+	visible = false
+	Beat.on_song_end.connect(judge_player)
+	Global.on_home.connect(hide)
+	Beat.on_song_start.connect(hide)
+	
+func judge_player():
+	modulate = Color(1.0,1.0,1.0,0.0)
+	visible = true
+	var c = 0
+	if Global.points <= 0: c = 0
+	elif Global.points < 3000: c = 1
+	elif Global.points < 10000: c = 2
+	elif Global.points < 20000: c = 3
+	elif Global.points < 30000: c = 4
+	else: c = 5
+	$Label.text = quotes[c]
+	var tween = create_tween()
+	tween.tween_property(self,\"modulate\",Color.WHITE,1.0)
+	tween.tween_callback(set_crosses.bind(c))
+	
+func set_crosses(amount: int):
+	for i in $Filled.get_child_count():
+		var c = $Filled.get_child(i)
+		c.visible = false
+		if i < amount: 
+			var tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
+			var old_scale = c.get_child(0).scale
+			tween.tween_property(c.get_child(0),\"scale\",Vector2(),0.0)
+			tween.tween_property(c,\"visible\",true,0.0)
+			tween.tween_interval(i*1.0)
+			tween.tween_property(c.get_child(0),\"scale\",old_scale,0.7)
+		else: c.visible = false
+"
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_n2v7r"]
+light_mode = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_exm5c"]
+font = ExtResource("3_1hhca")
+font_size = 36
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x82s3"]
+light_mode = 1
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_2c27w")
+
+[node name="Levo" type="Control" parent="."]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Levo"]
+visible = false
+layout_mode = 0
+offset_left = 374.0
+offset_top = 253.0
+offset_right = 623.0
+offset_bottom = 399.0
+text = "Idle"
+
+[node name="Pop" type="Node2D" parent="Levo"]
+position = Vector2(623.07, 345)
+script = ExtResource("1_47122")
+completed_label_path = NodePath("../Completed")
+failed_label_path = NodePath("../Failed")
+
+[node name="Pop" type="Sprite2D" parent="Levo/Pop"]
+position = Vector2(-25, 15)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_6s8in")
+
+[node name="HoldBeba" type="Sprite2D" parent="Levo/Pop/Pop"]
+visible = false
+position = Vector2(300, -365)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_tdy0c")
+
+[node name="DipBeba" type="Sprite2D" parent="Levo/Pop/Pop"]
+z_index = 1
+position = Vector2(195, 400)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_tdy0c")
+
+[node name="HoldBeba2" type="Sprite2D" parent="Levo/Pop/Pop"]
+visible = false
+z_index = 2
+position = Vector2(-694.21, 242.565)
+rotation = 1.06465
+scale = Vector2(0.5, 0.5)
+skew = 0.366519
+texture = ExtResource("3_tdy0c")
+
+[node name="BabyThrowPos" type="Marker2D" parent="Levo/Pop/Pop"]
+position = Vector2(260, -900)
+
+[node name="Brada" type="Sprite2D" parent="Levo/Pop/Pop"]
+position = Vector2(-17.175, -478.81)
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("5_fnu1p")
+
+[node name="Sto" type="Sprite2D" parent="Levo/Pop"]
+position = Vector2(185, 166)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_h6ttc")
+
+[node name="Beba" type="Sprite2D" parent="Levo/Pop/Sto"]
+material = SubResource("ShaderMaterial_yfktu")
+position = Vector2(-190, -1180)
+texture = ExtResource("4_qultv")
+
+[node name="Sto2" type="Sprite2D" parent="Levo/Pop"]
+position = Vector2(-185.62, 165)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_h6ttc")
+
+[node name="Beba" type="Sprite2D" parent="Levo/Pop/Sto2"]
+material = SubResource("ShaderMaterial_jbjjv")
+position = Vector2(50, -855.74)
+rotation = 0.689405
+skew = 0.671952
+texture = ExtResource("3_tdy0c")
+
+[node name="Background" type="Sprite2D" parent="Levo/Pop"]
+z_index = -25
+position = Vector2(5.03, -232.775)
+scale = Vector2(0.52, 0.331213)
+texture = ExtResource("7_1skec")
+metadata/_edit_lock_ = true
+
+[node name="Umocilica" type="Sprite2D" parent="Levo/Pop"]
+z_index = 20
+position = Vector2(8.71509, 194.045)
+scale = Vector2(0.135, 0.135)
+texture = ExtResource("9_5fuft")
+
+[node name="DipParticles" type="GPUParticles2D" parent="Levo/Pop/Umocilica"]
+z_index = -28
+position = Vector2(0, -721.69)
+emitting = false
+amount = 143
+process_material = SubResource("ParticleProcessMaterial_7kcg1")
+one_shot = true
+speed_scale = 1.95
+explosiveness = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Levo/Pop/Umocilica"]
+z_as_relative = false
+texture = ExtResource("10_7mlnn")
+
+[node name="Pod" type="StaticBody2D" parent="Levo/Pop"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/Pop/Pod"]
+position = Vector2(37.93, 125)
+shape = SubResource("RectangleShape2D_gb0n7")
+
+[node name="Markers" type="Node2D" parent="Levo/Pop"]
+
+[node name="Marker-1" type="Marker2D" parent="Levo/Pop/Markers"]
+position = Vector2(165.93, -78)
+
+[node name="Marker0" type="Marker2D" parent="Levo/Pop/Markers"]
+position = Vector2(171.93, -77)
+
+[node name="Marker1" type="Marker2D" parent="Levo/Pop/Markers"]
+position = Vector2(167.93, -79)
+
+[node name="Marker2" type="Marker2D" parent="Levo/Pop/Markers"]
+position = Vector2(70.93, -170)
+
+[node name="Marker3" type="Marker2D" parent="Levo/Pop/Markers"]
+position = Vector2(6.93, 165)
+
+[node name="Marker4" type="Marker2D" parent="Levo/Pop/Markers"]
+position = Vector2(70.93, -173)
+
+[node name="Marker5" type="Marker2D" parent="Levo/Pop/Markers"]
+position = Vector2(-222.07, 5.00001)
+
+[node name="Indicator" type="Node2D" parent="Levo/Pop"]
+visible = false
+z_index = 40
+material = SubResource("CanvasItemMaterial_pa75b")
+position = Vector2(170, -78)
+script = ExtResource("10_hjbfl")
+
+[node name="Arrow" type="Sprite2D" parent="Levo/Pop/Indicator"]
+modulate = Color(0.741176, 0.360784, 0.360784, 1)
+use_parent_material = true
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("10_pergn")
+
+[node name="Outline" type="Sprite2D" parent="Levo/Pop/Indicator"]
+use_parent_material = true
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("11_jkcqr")
+
+[node name="PointLight2D" type="PointLight2D" parent="Levo/Pop"]
+position = Vector2(13.93, 0)
+energy = 1.5
+blend_mode = 2
+texture = ExtResource("16_y7tij")
+texture_scale = 5.04
+metadata/_edit_lock_ = true
+
+[node name="DesniZvucnik" type="Sprite2D" parent="Levo"]
+position = Vector2(1208, 328)
+scale = Vector2(0.195, 0.195)
+texture = ExtResource("19_45fbq")
+script = ExtResource("20_crcnt")
+
+[node name="GornjiKrug" type="Sprite2D" parent="Levo/DesniZvucnik"]
+position = Vector2(-258.03, -212.87)
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("20_56yly")
+offset = Vector2(236.65, 223.51)
+
+[node name="DonjiKrug" type="Sprite2D" parent="Levo/DesniZvucnik"]
+position = Vector2(-258.03, 379.49)
+scale = Vector2(1.02, 1.02)
+texture = ExtResource("21_uw2ct")
+offset = Vector2(247.28, -368.23)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Levo/DesniZvucnik"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/DesniZvucnik/StaticBody2D"]
+position = Vector2(0, 125.475)
+shape = SubResource("RectangleShape2D_lc4qr")
+
+[node name="Impulse" type="Area2D" parent="Levo/DesniZvucnik"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/DesniZvucnik/Impulse"]
+position = Vector2(-1424.33, 0)
+shape = SubResource("RectangleShape2D_6ddyi")
+
+[node name="LeviZvucnik" type="Sprite2D" parent="Levo"]
+position = Vector2(75.015, 328)
+scale = Vector2(-0.195, 0.195)
+texture = ExtResource("19_45fbq")
+script = ExtResource("20_crcnt")
+
+[node name="GornjiKrug" type="Sprite2D" parent="Levo/LeviZvucnik"]
+position = Vector2(-258.03, -212.87)
+scale = Vector2(1.05, 1.05)
+texture = ExtResource("20_56yly")
+offset = Vector2(236.65, 223.51)
+
+[node name="DonjiKrug" type="Sprite2D" parent="Levo/LeviZvucnik"]
+position = Vector2(-258.03, 379.49)
+scale = Vector2(1.02, 1.02)
+texture = ExtResource("21_uw2ct")
+offset = Vector2(247.28, -368.23)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Levo/LeviZvucnik"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/LeviZvucnik/StaticBody2D"]
+position = Vector2(0, 125.475)
+shape = SubResource("RectangleShape2D_lc4qr")
+
+[node name="Impulse" type="Area2D" parent="Levo/LeviZvucnik"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Levo/LeviZvucnik/Impulse"]
+position = Vector2(-1424.32, 0)
+shape = SubResource("RectangleShape2D_6ddyi")
+
+[node name="LeviReflektor" type="PointLight2D" parent="Levo"]
+position = Vector2(148.86, 117.945)
+rotation = -0.942478
+shadow_enabled = true
+texture = ExtResource("16_y7tij")
+offset = Vector2(0, 418.58)
+texture_scale = 0.7
+script = ExtResource("23_s02pm")
+
+[node name="DesniReflektor" type="PointLight2D" parent="Levo"]
+position = Vector2(1141.36, 96)
+rotation = 0.942478
+shadow_enabled = true
+texture = ExtResource("16_y7tij")
+offset = Vector2(0, 418.58)
+texture_scale = 0.7
+script = ExtResource("23_s02pm")
+
+[node name="Occluder" type="LightOccluder2D" parent="Levo"]
+occluder = SubResource("OccluderPolygon2D_1qvb7")
+
+[node name="Occluder2" type="LightOccluder2D" parent="Levo"]
+occluder = SubResource("OccluderPolygon2D_rrolb")
+
+[node name="Score" type="Label" parent="Levo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 106.0
+grow_horizontal = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Crosses" type="Control" parent="Levo"]
+z_index = 30
+material = SubResource("CanvasItemMaterial_yuy27")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_na1g0")
+
+[node name="ColorRect" type="ColorRect" parent="Levo/Crosses"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.776471)
+
+[node name="Blank" type="GridContainer" parent="Levo/Crosses"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 250.0
+offset_bottom = -500.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="Cross0" type="TextureRect" parent="Levo/Crosses/Blank"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+texture = ExtResource("24_gbr8p")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Cross1" type="TextureRect" parent="Levo/Crosses/Blank"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+texture = ExtResource("24_gbr8p")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Cross2" type="TextureRect" parent="Levo/Crosses/Blank"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+texture = ExtResource("24_gbr8p")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Cross3" type="TextureRect" parent="Levo/Crosses/Blank"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+texture = ExtResource("24_gbr8p")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Cross4" type="TextureRect" parent="Levo/Crosses/Blank"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+texture = ExtResource("24_gbr8p")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="Filled" type="GridContainer" parent="Levo/Crosses"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 250.0
+offset_bottom = -500.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 5
+
+[node name="Cross0" type="Control" parent="Levo/Crosses/Filled"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Levo/Crosses/Filled/Cross0"]
+use_parent_material = true
+position = Vector2(125, 126.965)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("24_o1d86")
+
+[node name="Cross1" type="Control" parent="Levo/Crosses/Filled"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Levo/Crosses/Filled/Cross1"]
+use_parent_material = true
+position = Vector2(125, 126.965)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("24_o1d86")
+
+[node name="Cross2" type="Control" parent="Levo/Crosses/Filled"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Levo/Crosses/Filled/Cross2"]
+use_parent_material = true
+position = Vector2(125, 126.965)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("24_o1d86")
+
+[node name="Cross3" type="Control" parent="Levo/Crosses/Filled"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Levo/Crosses/Filled/Cross3"]
+use_parent_material = true
+position = Vector2(125, 126.965)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("24_o1d86")
+
+[node name="Cross4" type="Control" parent="Levo/Crosses/Filled"]
+use_parent_material = true
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Levo/Crosses/Filled/Cross4"]
+use_parent_material = true
+position = Vector2(125, 126.965)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("24_o1d86")
+
+[node name="Label" type="Label" parent="Levo/Crosses"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -250.0
+text = "Sveti Sava would be proud."
+horizontal_alignment = 1
+
+[node name="Labels" type="Control" parent="Levo"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("23_je3ta")
+
+[node name="Completed" type="Label" parent="Levo"]
+material = SubResource("CanvasItemMaterial_n2v7r")
+layout_mode = 0
+offset_left = 154.0
+offset_top = 49.0
+offset_right = 314.0
+offset_bottom = 144.0
+text = "0"
+label_settings = SubResource("LabelSettings_exm5c")
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Levo/Completed"]
+material = SubResource("CanvasItemMaterial_n2v7r")
+layout_mode = 1
+offset_left = -104.0
+offset_right = -8.0
+offset_bottom = 96.0
+texture = ExtResource("14_dx3ls")
+expand_mode = 1
+
+[node name="Failed" type="Label" parent="Levo"]
+material = SubResource("CanvasItemMaterial_n2v7r")
+layout_mode = 0
+offset_left = 798.0
+offset_top = 53.0
+offset_right = 1131.0
+offset_bottom = 143.0
+text = "0"
+label_settings = SubResource("LabelSettings_exm5c")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Levo/Failed"]
+material = SubResource("CanvasItemMaterial_n2v7r")
+layout_mode = 0
+offset_left = 340.0
+offset_top = -4.0
+offset_right = 436.0
+offset_bottom = 92.0
+texture = ExtResource("15_16dh5")
+expand_mode = 1
+
+[node name="Desno" type="Control" parent="."]
+material = SubResource("CanvasItemMaterial_x82s3")
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Gameplay" parent="Desno" instance=ExtResource("16_02hr3")]
+visible = false
+use_parent_material = true
+layout_mode = 1
+
+[node name="MainMenu" type="Control" parent="Desno"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 553.0
+offset_top = 64.0
+offset_right = -64.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("11_65x11")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Desno/MainMenu"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 132.0
+offset_right = -0.23999
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="PlayNormalModeButton" type="Button" parent="Desno/MainMenu/VBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.407843, 0.407843, 0.407843, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 64
+text = "Play"
+
+[node name="Quit" type="Button" parent="Desno/MainMenu/VBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0.407843, 0.407843, 0.407843, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+text = "Quit"
+
+[node name="DifficultySelect" type="OptionButton" parent="Desno/MainMenu"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 412.0
+offset_top = -52.0
+offset_right = 678.0
+offset_bottom = -3.0
+item_count = 5
+selected = 1
+popup/item_0/text = "EASY"
+popup/item_0/id = 0
+popup/item_1/text = "NORMAL"
+popup/item_1/id = 1
+popup/item_2/text = "HARD"
+popup/item_2/id = 2
+popup/item_3/text = "HARDER"
+popup/item_3/id = 3
+popup/item_4/text = "HARDEST"
+popup/item_4/id = 4
+
+[node name="GameOver" type="Control" parent="Desno"]
+z_index = 50
+z_as_relative = false
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("27_ceosw")
+
+[node name="Home" type="TextureButton" parent="Desno/GameOver"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -96.0
+offset_right = -32.0
+offset_bottom = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("12_ncivn")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Retry" type="TextureButton" parent="Desno/GameOver"]
+use_parent_material = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = -96.0
+offset_right = 96.0
+offset_bottom = -32.0
+grow_vertical = 0
+texture_normal = ExtResource("14_ux28w")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="Background" type="Sprite2D" parent="Desno"]
+visible = false
+z_index = -25
+use_parent_material = true
+position = Vector2(-383.76, 152)
+rotation = -1.5708
+scale = Vector2(0.439252, 0.439252)
+texture = ExtResource("7_1skec")
+
+[node name="Explosion" parent="." instance=ExtResource("31_p5v2k")]
+position = Vector2(390, 230)
+
+[connection signal="pressed" from="Desno/MainMenu/VBoxContainer/PlayNormalModeButton" to="Desno/MainMenu" method="_on_play_normal_mode_button_pressed"]
+[connection signal="pressed" from="Desno/MainMenu/VBoxContainer/Quit" to="Desno/MainMenu" method="_on_quit_pressed"]
+[connection signal="item_selected" from="Desno/MainMenu/DifficultySelect" to="Desno/MainMenu" method="_on_difficulty_select_item_selected"]
+[connection signal="pressed" from="Desno/GameOver/Home" to="Desno/GameOver" method="_on_home_pressed"]
+[connection signal="pressed" from="Desno/GameOver/Retry" to="Desno/GameOver" method="_on_retry_pressed"]

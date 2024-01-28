@@ -1,4 +1,3 @@
-class_name ThrownBaby
 extends RigidBody2D
 
 var velocity: Vector2 

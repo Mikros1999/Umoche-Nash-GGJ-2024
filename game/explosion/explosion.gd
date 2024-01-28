@@ -6,5 +6,5 @@ func _ready():
 	$Explosion.play("default")
 	await get_tree().create_timer(0.1).timeout
 	for body in get_overlapping_bodies():
-		if body is ThrownBaby:
+		if body is RigidBody2D:
 			body.apply_central_impulse(global_position.direction_to(body.global_position)*1500.0)
