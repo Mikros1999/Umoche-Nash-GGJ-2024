@@ -10,6 +10,8 @@ enum Difficulty {
 
 var difficulty: int = Difficulty.EASY
 
+var points: int 
+
 func _process(delta):
 	if Input.is_action_just_pressed("fullscreen"):
 		print("a")

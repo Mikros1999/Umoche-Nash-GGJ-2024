@@ -72,6 +72,7 @@ func _physics_process(delta): # smesnoo je
 	
 func set_points(value: int):
 	points = value
+	Global.points = value
 	$"../Score".text = str(value)
 	
 func on_success():
