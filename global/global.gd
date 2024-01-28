@@ -1,5 +1,7 @@
 extends Control
 
+signal on_home
+
 enum Difficulty {
 	EASY,
 	NORMAL,

@@ -10,6 +10,7 @@ func on_song_end():
 
 
 func _on_home_pressed():
+	Global.on_home.emit()
 	$"../MainMenu".visible = true
 	visible = false
 	
