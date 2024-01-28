@@ -5,6 +5,7 @@ var gravity: float = 1400.0
 var t: float
 
 func _ready():
+	Beat.on_song_start.connect(queue_free)
 	apply_central_impulse(velocity)
 	apply_torque_impulse(randf()*10000.0)
 	if Beat.silly_mode: silly_mode_ready()
@@ -17,4 +18,4 @@ func silly_mode_ready():
 
 func _process(delta):
 	t+=delta
-	if t > 60000.0: queue_free()
+	if t > 3000.0: queue_free()

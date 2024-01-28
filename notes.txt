@@ -1,6 +1,62 @@
+FEEDBACK REPORT - Miroslav
+-- ljudi koji inace igraju ovakve igre nemaju problema ni sa hardcore modom, al vecina ljudi ovde nije takva --
+
+--- DOBRE STAVKE ---
+- igra se svima mnogo svidja idejno i vizuelno
+- svi misle da je odgovorila na temu (osim jednog lika koji ne vidi sta je tu smesno)
+- svi misle da izgleda polishovano
+
+--- LOSE STAVKE ---
+*- da strelica u prvom stateu uvek ostane u istom smeru dok se ne ubode, jer ljudi ne mogu da se vrate u kolosek kad ispadnu jer im se menja srtelica svaki cas
+*- da boje budu konsistent (jedan smer strelice, jedna boja) - ovo da bude za normal i easy
+*- feedback playeru kad pogresi ili pogodi
+*- svi zele neki nacin da znaju koliko je jos vremena ostalo (tipa progress bar)
+*- preduga je pesma, ljudi u glavnom odustanu na oko pola, mozda malo preko pola (predlazem da odfikarimo visak pesme, mozda cela u hardcore modu)
+*- nema reload pri igranju
+*- nema return to main menu pri igranju
+*- nema finish screen
+?- imali su problem da shvate kad treba da kliknu dugme (jer prihvatamo mnogo veliku marginu greske pa izgleda ko da i nije bitno kad kliknu)
+?- neki su predlozili da player mora da izgubi posle X bacenih beba (predlazem 15-20, sto je vec mnogo al imao sam ljude koji su gubili i 30 na easy)
+?- skoro svi su hteli da mogu da vide bar sledecu ako ne i vise sledecih strelica unapred (da pada onako ko ranije lol)     
+?- da se strelica ne povecava nego da bude od pocetka setovane velicine
+?- scoreboard
+X- vise levela, prvi da ima samo jedan input, drugi dva itd jer im je previse tesko
+
+--- done ---
+*- da se ne ubrzava - sve osim hardcore
+*- da strelice budu samo na jednom mestu, jer im je tesko da se fokusiraju (ja bih da ostane opcija i kako je bilo, tzv hardcore mod)
+
+Hardcore Mode
+- strelice menjaju boju, poziciju i smer
+- ubrzava se
+- traje full
+Hard Mode
+- strelice menjaju boju, poziciju i smer
+- ne ubrzava se
+Normal Mode
+- ne ubrzava se
+- strelica je na jednom mestu
+- boje strelica su persistent u odnosu na smer
+- skracena pesma
+Easy Mode
+- inherits from Normal Mode
+- ima samo jedan input 
+Silly Mode
+- inherits from Hardcore mode
+- everything goes to shit
+
+ako je zensko da je baci (zenske imaju masnicu)
+ako je musko ok ali
+ - ako je crno onda ga opere
+
+emo beba
+
+oci da gledaju u bebe
+
 greska
 pause
 eksplozija
+macka pijana
 
 win lose condition (optional)
 
@@ -15,12 +71,13 @@ pozadina
 
 
 
-
-
-
-
-
-
 zumira facu
 
 svetlo koje se okrece prema strelici
+
+
+
+X- yeeet sound
+
+
+

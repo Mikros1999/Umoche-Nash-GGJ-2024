@@ -1,5 +1,15 @@
 extends Control
 
+enum Difficulty {
+	EASY,
+	NORMAL,
+	HARD,
+	HARDER,
+	HARDEST
+}
+
+var difficulty: int = Difficulty.EASY
+
 func _process(delta):
 	if Input.is_action_just_pressed("fullscreen"):
 		print("a")

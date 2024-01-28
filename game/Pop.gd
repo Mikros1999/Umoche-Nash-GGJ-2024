@@ -40,6 +40,7 @@ var baby_streak: int = 0
 
 func _ready():
 	# throw_baby()
+	Beat.on_song_start.connect(set_points.bind(0))
 	Beat.hit_success.connect(on_success)
 	Beat.hit_fail.connect(on_fail)
 	#Beat.on_beat.connect(on_beat)
@@ -57,7 +58,7 @@ func _process(delta):
 		$Pop/Brada.modulate = Color.WHITE
 
 func _physics_process(delta): # smesnoo je
-	if Beat.silly_mode and randi()%500 == 1:
+	if Beat.playing and Beat.silly_mode and randi()%700 == 1:
 		var s2 = duplicate()
 		global_position.x -= 100
 		get_parent().add_child(s2)
