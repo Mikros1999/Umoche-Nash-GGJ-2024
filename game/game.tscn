@@ -431,6 +431,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Crosses" type="Control" parent="Levo"]
+visible = false
 z_index = 30
 material = SubResource("CanvasItemMaterial_yuy27")
 layout_mode = 1

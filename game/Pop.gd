@@ -40,6 +40,12 @@ var baby_streak: int = 0
 
 func _ready():
 	# throw_baby()
+	Beat.on_song_start.connect(
+		func():
+			completed_babies = 0
+			failed_babies = 0
+			completed_label.text = "0"
+			failed_label.text = "0")
 	Beat.on_song_start.connect(set_points.bind(0))
 	Beat.hit_success.connect(on_success)
 	Beat.hit_fail.connect(on_fail)

@@ -34,7 +34,7 @@ var audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
 var indicators: CanvasItem
 var indicator_speed: float = 600.0
 var tiles: Array[Tile] = []
-var silly_mode: bool = true
+var silly_mode: bool = false
 var song: AudioStream
 
 
